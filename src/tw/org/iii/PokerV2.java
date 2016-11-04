@@ -27,6 +27,7 @@ public class PokerV2 {
             }
 
         }
+
         // 發牌
         int[][] players = new int[4][13];
         for (int i =0; i<poker.length; i++){
