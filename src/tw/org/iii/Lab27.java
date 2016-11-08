@@ -4,10 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 public class Lab27 extends JFrame implements ActionListener{
     private JButton newFile, openFile, saveFile, saveAsFile, exit;
     private JTextArea editor;
+    private File editFile;
 
     public Lab27(){
         //super();
@@ -21,12 +23,25 @@ public class Lab27 extends JFrame implements ActionListener{
         exit = new JButton("Exit");
         editor = new JTextArea();
 
-        newFile.addActionListener(new MyListener());
-        newFile.addActionListener(this);
+//        newFile.addActionListener(new MyListener());
+//        newFile.addActionListener(this);
         newFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("C");
+                newFile();
+            }
+        });
+
+        openFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openFile();
+            }
+        });
+        saveFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveFile();
             }
         });
 
@@ -35,6 +50,7 @@ public class Lab27 extends JFrame implements ActionListener{
         top.add(saveFile);top.add(exit);
 
         add(top,BorderLayout.NORTH);
+        JScrollPane jsp = new JScrollPane();
         add(editor, BorderLayout.CENTER);
 
         setSize(640,480);
@@ -44,6 +60,67 @@ public class Lab27 extends JFrame implements ActionListener{
     public static void main(String[] args){
         new Lab27();
     }
+
+    //產生新檔
+    private void newFile (){
+        editFile = null;
+        editor.setText("");
+    }
+
+    private void openFile(){
+        JFileChooser jfc = new JFileChooser();
+        if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            editFile = jfc.getSelectedFile();
+            //System.out.println(editFile.getAbsolutePath());
+            loadFile();
+        }
+
+    }
+
+    private void loadFile(){
+        try {
+            StringBuffer sb = new StringBuffer();
+            BufferedReader br = new BufferedReader(new FileReader(editFile));
+            String line;
+            while ((line = br.readLine()) != null){
+                sb.append(line + "\n");
+            }
+            br.close();
+            editor.setText(sb.toString());
+        }catch (Exception e){
+
+        }
+    }
+
+    private void saveFile(){
+        if (editFile != null){
+            saveAsFile();
+        }else {
+            save2RealFile();
+        }
+    }
+
+    private void saveAsFile(){
+        JFileChooser jfc = new JFileChooser();
+        if (jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
+            editFile = jfc.getSelectedFile();
+            save2RealFile();
+
+        }
+    }
+
+    private void save2RealFile(){
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(editFile));
+            bw.write(editor.getText());
+            bw.flush();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
