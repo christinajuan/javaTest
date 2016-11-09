@@ -1,8 +1,6 @@
 package tw.org.iii;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -16,18 +14,19 @@ public class Lab43 {
             System.out.println("Listen...");
             Socket socket = server.accept();
 
-            server.accept();
-            BufferedReader br =
-                    new BufferedReader(
-                            new InputStreamReader(
-                                    socket.getInputStream()));
+            String urip = socket.getInetAddress().getHostAddress();
+            System.out.println(urip + ":");
 
-            String line;
-            while ((line = br.readLine()) != null){
-                System.out.println(line);
+            FileOutputStream fout = new FileOutputStream("upload/"+urip+".jpg");
+
+            InputStream in = socket.getInputStream();
+            int b;
+            while ((b=in.read())!=-1){
+                fout.write(b);
             }
-            br.close();
-
+            in.close();
+            fout.flush();
+            fout.close();
 
             server.close();
             System.out.println("Server OK");
