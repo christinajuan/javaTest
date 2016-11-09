@@ -7,16 +7,20 @@ import java.net.SocketException;
 
 public class Lab41 {
     public static void main(String[] args){
-        String mesg = "Hello, World";
+        String mesg = "Hello, 全世界";
         byte[] data = mesg.getBytes();
         try {
-            DatagramSocket socket = new DatagramSocket();
-            DatagramPacket packet = new DatagramPacket(data,data.length,
-                    InetAddress.getByName("10.2.24.255"),888);
+            DatagramSocket socket =
+                    new DatagramSocket();
+            DatagramPacket packet =
+                    new DatagramPacket(data,data.length,
+                            InetAddress.getByName("10.2.24.255"),
+                            8888);
             socket.send(packet);
             socket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }
