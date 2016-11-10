@@ -6,6 +6,9 @@ public class Lab11 {
         while (i<=n){
             sum +=i++;
         }
+//        for(i=0;i<=10;i++){
+//            sum+=i;
+//        }
 
         System.out.println("1 + 2 + ... + "+ n + " = " + sum);
     }

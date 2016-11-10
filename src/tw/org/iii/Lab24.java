@@ -7,7 +7,10 @@ public class Lab24 {
         Person obj1 = new Person("Brad");
         Person obj2 = new Person("Peter");
         Person obj3 = new Person("Andy");
+        System.out.println(obj1.name);
         System.out.println(Person.getCounter());
+
+        obj3.sayYa();
 
     }
 }
@@ -20,7 +23,7 @@ class Person{
         counter++;
     }
     void sayYa(){
-        System.out.println(name + "Ya");
+        System.out.println(name + ":Ya");
     }
     static int getCounter(){
         return counter;

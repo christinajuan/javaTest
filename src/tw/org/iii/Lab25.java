@@ -9,6 +9,7 @@ public class Lab25 {
         Lab252 obj3 = new Lab254();
         obj2.m2();
         obj3.m2();
+        System.out.println("obj1 (%s, %c)%n");
     }
 }
 class Lab251 {
