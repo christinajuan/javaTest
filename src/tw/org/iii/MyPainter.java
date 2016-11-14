@@ -2,6 +2,8 @@ package tw.org.iii;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MyPainter extends JFrame {
     private JButton clear, undo, redo;
@@ -21,6 +23,26 @@ public class MyPainter extends JFrame {
         myPanel = new MyPanel();
         add(myPanel, BorderLayout.CENTER);
 
+        clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                myPanel.clear();
+            }
+        });
+
+        undo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                myPanel.undo();
+            }
+        });
+
+        redo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                myPanel.redo();
+            }
+        });
 
         setSize(800,600);
         setVisible(true);
